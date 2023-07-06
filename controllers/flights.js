@@ -3,13 +3,20 @@ const flightModel = require('../models/flight');
 module.exports = {
     index,
     show,
-    new: newMovie,
+    new: newFlight,
     create
 };
 
 async function index(req,res) {
-    const flights = await flightModel.find({});
-    res.render('flights/index', {flights});
+    try {
+        const flights = await flightModel.find({});
+        // console.log("hrllo")
+        // console.log(flights)
+        res.render('flights/', {flights});
+    } catch(err) {
+        console.log(err);
+        res.render(err)
+    }
 }
 
 async function show(req, res) {
@@ -17,26 +24,15 @@ async function show(req, res) {
     res.render('flights/show', { title: 'Flight Detail', flight });
   }
 
-function newMovie(req,res){
+function newFlight(req,res){
     //we want to be able to render error message if the create action fails
-    res.render('flights/new',{ errorMsg: '' });
+    res.render('flights/new', { airline: "Add Flight", errorMsg: "" });
 }
 
 async function create(req, res) {
-    //convert nowBoarding's checkbox of nothing or "on" to boolean
     req.body.nowBoarding = !!req.body.nowBoarding;
-    try {
-        const { airline, airport, flightNo, departs } = req.body;
-        const flight = new flightModel({
-            airline,
-            airport,
-            flightNo,
-            departs,
-        });
-        await flight.save();
-        res.redirect('/flights')
-      } catch (err) {
-        console.log(err)
-        res.redirect('/flights/new')
-      }
+    if(req.body['Departs-time'] === '')delete req.body['Departs-time']
+    const filghtFromTheDatabase = await flightModel.create(req.body)
+
+    res.redirect(`flights/${filghtFromTheDatabase._id}`)
 }

@@ -15,11 +15,11 @@
     <!-- Write the line of EJS to iterate over movies using forEach -->
     <% flights.forEach(function(f) { %>
       <tr>
-        <td><%= f.airline %></td>
-        <td><%= f.airport %></td>
-        <td><%= f.flightNo %></td>
-        <td><%= f.departs %></td>
-        <td><a href="/fligths/<%= f._id %>">DETAILS</a></td>
+        <td><%= f.Airline %></td>
+        <td><%= f.Airport %></td>
+        <td><%= f.FlightNo %></td>
+        <td><%= f.Departs %></td>
+        <td><a href="/flights/<%= f._id %>">DETAILS</a></td>
         <!-- finish the ternary expression to display 'Yes' or 'Nope'
         <td><%= f.nowBoarding ? 'Yes' : 'Nope' %></td> -->
       </tr>
