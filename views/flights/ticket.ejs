@@ -1,0 +1,7 @@
+
+
+<form id="add-seat-form" method="POST"
+  action="/flights/<%= flight._id %>/tickets">
+  <input name="seat" required pattern="[A-F][1-9]\d?">
+  <input type="submit" value="Add seat">
+</form>

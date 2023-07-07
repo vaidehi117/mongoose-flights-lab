@@ -1,10 +1,12 @@
 const flightModel = require('../models/flight');
 
+
 module.exports = {
     index,
     show,
     new: newFlight,
-    create
+    create,
+    createSeat
 };
 
 async function index(req,res) {
@@ -35,4 +37,14 @@ async function create(req, res) {
     const filghtFromTheDatabase = await flightModel.create(req.body)
 
     res.redirect(`flights/${filghtFromTheDatabase._id}`)
+}
+
+async function createSeat(req, res) {
+    console.log(req.body)
+    const ticketFromTheDatabase = await ticketModel.create(req.body)
+    // req.body.nowBoarding = !!req.body.nowBoarding;
+    // if(req.body['Departs-time'] === '')delete req.body['Departs-time']
+    // const filghtFromTheDatabase = await flightModel.create(req.body)
+
+    // res.redirect(`flights/${filghtFromTheDatabase._id}`)
 }

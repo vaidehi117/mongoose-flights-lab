@@ -6,16 +6,24 @@
   <div>Airport: <%= flight.Airport %></div>
   <div>FlightNo: <%= flight.FlightNo %></div>
   <div>Depart: <%= flight.Departs %></div>
-  <div>Now Showing: <%= flight.nowBoarding ? 'Yes' : 'Nope' %></div>
+  <div>Now Boarding: <%= flight.nowBoarding ? 'Yes' : 'Nope' %></div>
 </section>
 
 <!-- new markup below -->
 <br><br><h2>Destinations</h2>
 <form id="add-destination-form" method="POST"
   action="/flights/<%= flight._id %>/Destinations">
-  <label>Destinations:</label>
-  <textarea name="Airport"></textarea>
+  <label>Destinations:
+    <select name="destinations">
+      <option value="EWR">EWR</option>
+      <option value="ORD">ORD</option>
+      <option value="DAL">DAL</option>
+      <option value="JFK">JFK</option>
+      <option value="MCO">MCO</option>
+    </select>
+  </label><br>
   <label>Arrival:</label>
+  <input type="date" name="Arrival"><br>
   <input type="submit" value="Add Destination">
 </form>
 
@@ -25,7 +33,7 @@
       <thead>
         <tr>
           <th>Date</th>
-          <th>Airport</th>
+          <th>Destination</th>
           <th>Arrival</th>
         </tr>
       </thead>
@@ -33,7 +41,7 @@
         <% flight.destinations.forEach(function(a) { %>
           <tr>
             <td><%= a.createdAt.toLocaleDateString() %></td>
-            <td><%= a.Airport %></td>
+            <td><%= a.destinations %></td>
             <td><%= a.Arrival %></td>
           </tr>
         <% }); %>
@@ -42,6 +50,9 @@
   <% } else { %>
     <h5>No Destinations Yet</h5>
   <% } %>
- 
+  
+  <%- include('./ticket') %>
 
+
+  
 <%- include('../partials/footer') %> 

@@ -2,26 +2,23 @@ const mongoose = require('mongoose');
 //Optional shortcut to the mongoose.schema class
 const Schema = mongoose.Schema;
 
-
-// ONE MOVIE HAS MANY REVIEWS 
-// A REVIEW BELONGS TO A MOVIE
-// is the relationship for the reviews and movies
-
-// if your embedding, you always
-// write the many (side) schema (reviews) 
-// in the One side (in this case movie)
+//Destination Schema
 const destinationSchema = new Schema({
-  Airport: {
+  destinations: {
     type: String,
-    enum: ['AUS', 'DFW', 'DEN', 'LAX', 'SAN'],
+    enum: ['EWR', 'ORD', 'DAL', 'JFK', 'MCO'],
     required: true
   },
   Arrival: {
     type: Date,
+    default: () => new Date(new Date().setFullYear(new Date().getFullYear()+1)),
   }
 }, {
   timestamps: true
 });
+
+
+
 
 //One Flight
 const flightSchema = new mongoose.Schema ({
